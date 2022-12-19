@@ -1,0 +1,12 @@
+{
+    "name": "Tilemaker to OpenMapTiles schema",
+    "type": "baselayer",
+    "version": "3.0",
+    "description": "Tile config based on OpenMapTiles schema",
+    "format": "pbf",
+    "minzoom": "0",
+    "maxzoom": "16",
+    "bounds": "6.540000,45.770000,7.160000,46.040000",
+    "center": "6.850000,45.905000,8",
+    "json": "{\"vector_layers\":[{\"id\":\"place\",\"fields\":{\"class\":\"String\",\"name:latin\":\"String\"},\"minzoom\":0,\"maxzoom\":16},{\"id\":\"boundary\",\"fields\":{\"admin_level\":\"Number\",\"disputed\":\"Number\"},\"minzoom\":0,\"maxzoom\":16},{\"id\":\"poi\",\"fields\":{\"class\":\"String\",\"name:latin\":\"String\",\"rank\":\"Number\",\"subclass\":\"String\"},\"minzoom\":12,\"maxzoom\":16},{\"id\":\"housenumber\",\"fields\":{\"housenumber\":\"String\"},\"minzoom\":14,\"maxzoom\":16},{\"id\":\"waterway\",\"fields\":{\"brunnel\":\"String\",\"class\":\"String\",\"intermittent\":\"Number\",\"name:latin\":\"String\"},\"minzoom\":8,\"maxzoom\":16},{\"id\":\"transportation\",\"fields\":{\"brunnel\":\"String\",\"class\":\"String\",\"oneway\":\"Number\",\"ramp\":\"Number\",\"service\":\"String\"},\"minzoom\":4,\"maxzoom\":16},{\"id\":\"transportation_name\",\"fields\":{\"class\":\"String\",\"name:latin\":\"String\",\"network\":\"String\",\"ref\":\"String\",\"ref_length\":\"Number\"},\"minzoom\":8,\"maxzoom\":16},{\"id\":\"building\",\"fields\":{\"render_height\":\"Number\",\"render_min_height\":\"Number\"},\"minzoom\":13,\"maxzoom\":16},{\"id\":\"water\",\"fields\":{\"class\":\"String\",\"intermittent\":\"String\"},\"minzoom\":6,\"maxzoom\":16},{\"id\":\"water_name\",\"fields\":{\"class\":\"String\",\"name:latin\":\"String\"},\"minzoom\":14,\"maxzoom\":16},{\"id\":\"aeroway\",\"fields\":{\"class\":\"String\",\"ref\":\"String\"},\"minzoom\":11,\"maxzoom\":16},{\"id\":\"aerodrome_label\",\"fields\":{\"class\":\"String\",\"iata\":\"String\",\"icao\":\"String\",\"name:latin\":\"String\"},\"minzoom\":10,\"maxzoom\":16},{\"id\":\"park\",\"fields\":{},\"minzoom\":11,\"maxzoom\":16},{\"id\":\"landuse\",\"fields\":{\"class\":\"String\"},\"minzoom\":4,\"maxzoom\":16},{\"id\":\"landcover\",\"fields\":{\"class\":\"String\",\"subclass\":\"String\"},\"minzoom\":0,\"maxzoom\":16},{\"id\":\"mountain_peak\",\"fields\":{\"class\":\"String\",\"ele\":\"Number\",\"ele_ft\":\"Number\",\"name:latin\":\"String\",\"rank\":\"Number\"},\"minzoom\":11,\"maxzoom\":16}]}"
+}

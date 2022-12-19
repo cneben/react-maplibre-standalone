@@ -1,0 +1,14 @@
+{
+"name": "chamonix_contours_50m",
+"description": "chamonix_contours_50m",
+"version": "2",
+"minzoom": "1",
+"maxzoom": "11",
+"center": "6.943359,45.889974,11",
+"bounds": "6.128226,45.567503,7.524633,46.055944",
+"type": "overlay",
+"format": "pbf",
+"generator": "tippecanoe v1.36.0",
+"generator_options": "tippecanoe --no-feature-limit --no-tile-size-limit --exclude-all '--minimum-zoom=1' '--maximum-zoom=11' --no-tile-compression -y height -l contours --force --output-to-directory chamonix_contours_50m chamonix_contours_50m.geojson",
+"json": "{\"vector_layers\": [ { \"id\": \"contours\", \"description\": \"\", \"minzoom\": 1, \"maxzoom\": 11, \"fields\": {\"height\": \"Number\"} } ],\"tilestats\": {\"layerCount\": 1,\"layers\": [{\"layer\": \"contours\",\"count\": 4400,\"geometry\": \"LineString\",\"attributeCount\": 1,\"attributes\": [{\"attribute\": \"height\",\"count\": 91,\"type\": \"number\",\"values\": [1000,1050,1100,1150,1200,1250,1300,1350,1400,1450,1500,1550,1600,1650,1700,1750,1800,1850,1900,1950,2000,2050,2100,2150,2200,2250,2300,2350,2400,2450,250,2500,2550,2600,2650,2700,2750,2800,2850,2900,2950,300,3000,3050,3100,3150,3200,3250,3300,3350,3400,3450,350,3500,3550,3600,3650,3700,3750,3800,3850,3900,3950,400,4000,4050,4100,4150,4200,4250,4300,4350,4400,4450,450,4500,4550,4600,4650,4700,4750,500,550,600,650,700,750,800,850,900,950],\"min\": 250,\"max\": 4750}]}]}}"
+}
