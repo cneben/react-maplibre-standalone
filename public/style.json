@@ -25,12 +25,14 @@
     "terrain_source": {
 			"type":  "raster-dem",
       "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"],
+      "bounds": [6.540000,45.770000,7.160000,46.040000],
       "minzoom": 0,
       "maxzoom": 12
 		},
 		"hillshade_source": {
 			"type":  "raster-dem",
       "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"],
+      "bounds": [6.540000,45.770000,7.160000,46.040000],
       "minzoom": 0,
       "maxzoom": 12
 		},
