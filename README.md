@@ -293,11 +293,23 @@ By serverless we mean:
 
 ### Create glyph and sprites resources:
 
-Création d'un style.json "custom"
-
-Génération des fontes:
+Fonts are generated from [openmaptiles fonts](https://github.com/openmaptiles/fonts):
+```
+git clone git@github.com:openmaptiles/fonts.git
+cd fonts
 npm install
 node generate.js
+```
+Resulting fonts should be copied to `public/fonts`.
+
+Sprites have not been generated but copied directly from [osm-liberty](https://github.com/maputnik/osm-liberty) (CC-BY 4.0), the following `style.json` configuration could be used:
+
+```json
+{
+  "sprite": "http://localhost:3000/sprites/osm-liberty",
+  "glyphs": "http://localhost:3000/fonts/{fontstack}/{range}.pbf",
+}
+```
 
 ### Create a custom style
 
@@ -306,6 +318,8 @@ Our base style is [osm-bright](https://github.com/openmaptiles/osm-bright-gl-sty
 See [public/syle.json](https://github.com/cneben/react-maplibre-standalone/blob/master/public/style.json)
 
 ```json
+{
+  ...
   "sources": {
     "terrain_source": {
 			"type":  "raster-dem",
@@ -332,7 +346,8 @@ See [public/syle.json](https://github.com/cneben/react-maplibre-standalone/blob/
       "minzoom": 0,
       "maxzoom": 11
     }
-  }
+  },
+  ...
 }
 ```
 
@@ -340,19 +355,21 @@ Manually configuring `minzoom`, `maxzoom` and `bounds` is recommended to avoid 4
 
 Once sources are configured, a special vector layers must be created for contours visualization, this configuration has been adapted from [maptiler-terrain-gl-style](https://github.com/openmaptiles/maptiler-terrain-gl-style) (BSD3) and merged in "bright":
 
-```
-    {
-      "id": "contour_index",
-      "type": "line",
-      "source": "terrain_contours_50m",
-      "source-layer": "contours",
-      "filter": ["all", ["==", ["%", ["get", "height"], 500], 0]],
-      "layout": { "visibility": "visible" },
-      "paint": { ... }
-    },
+```json
+  "layers": [
+  {
+    "id": "contour_index",
+    "type": "line",
+    "source": "terrain_contours_50m",
+    "source-layer": "contours",
+    "filter": ["all", ["==", ["%", ["get", "height"], 500], 0]],
+    "layout": { "visibility": "visible" },
+    "paint": { ... }
+  }, ...
+  ]
 ```
 
-Note that `source-layer` must be the `-l` argument used in `tippecanoe`. Our filter will generate a bold "contour index line" every 500m (ie height % 500 is 0).
+Note that `source-layer` must be the `-l` argument used in `tippecanoe`. Our filter will generate a bold "contour index line" every 500m (ie where `height % 500 == 0`).
 
 ## Perspectives
 
