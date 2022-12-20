@@ -177,7 +177,7 @@ gdalwarp -r cubicspline -t_srs EPSG:3857 -dstnodata 0 -co COMPRESS=DEFLATE SRTM_
 gdal_translate -of GTiff -co COMPRESS=LZW -co BIGTIFF=YES -co TILED=YES SRTM_chamonix_area_WGS84.vrt chamonix_area.tiff
 ```
 
-To crop your "area" DEM to OSM data bounding box you need to generate the bounding box with `osmium fileinfo`, then to apply crop with `gdalwarp` with a bbox in correct SRS:
+To crop your "area DEM" to OSM data bounding box you need to extract the bounding box with `osmium fileinfo` command and then to apply crop with `gdalwarp` with a bbox in correct SRS:
 
 ```sh
 $ osmium fileinfo chamonix_osm.pbf
@@ -271,7 +271,7 @@ tippecanoe --no-feature-limit --no-tile-size-limit --exclude-all --minimum-zoom=
 `tippecanoe` main arguments:
   - `--no-tile-compression`: . FIXME issue reference GH. 
   - `-y height`: FIXME.
-  - `-l contours`: Name of the contour polylines layer inside the geojson tiles, this name is reused in maplibre style.json contour layers configuration.
+  - `-l contours`: Name of the contour polylines layer inside the geojson tiles, this name is reused in Maplibre style.json contour layers configuration.
 
 You end directly with a plain `.pbf` directory: `chamonix_coutours_50m` (use mb-util to generate a `.mbtiles`).
 
@@ -301,38 +301,63 @@ node generate.js
 
 ### Create a custom style
 
-https://openmaptiles.github.io/osm-bright-gl-style/sprite
+Our base style is [osm-bright](https://github.com/openmaptiles/osm-bright-gl-style) (BSD3) from OpenMapTiles.
 
-FIXME: tiles vs url.
+See [public/syle.json](https://github.com/cneben/react-maplibre-standalone/blob/master/public/style.json)
 
 ```json
-,
-		"terrain_source": {
+  "sources": {
+    "terrain_source": {
 			"type":  "raster-dem",
-      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"]
+      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"],
+      "minzoom": 0,
+      "maxzoom": 12
 		},
 		"hillshade_source": {
 			"type":  "raster-dem",
-      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"]
-		}
-
-	"terrain": {
-		"source":  "terrain_source",
-		"exaggeration": 1
-	},
-
-  "text-field": ["concat", ["to-string", ["get", "height"]], "m"],
+      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"],
+      "minzoom": 0,
+      "maxzoom": 12
+		},
+    "openmaptiles": {
+      "type": "vector",
+      "tiles": ["http://localhost:3000/chamonix_osm/{z}/{x}/{y}.pbf"],
+      "minzoom": 0,
+      "maxzoom": 16,
+      "bounds": [6.540000, 45.770000, 7.160000, 46.040000]
+    },
+    "terrain_contours_50m": {
+      "type": "vector",
+      "tiles": ["http://localhost:3000/chamonix_contours_50m/{z}/{x}/{y}.pbf"],
+      "minzoom": 0,
+      "maxzoom": 11
+    }
+  }
 }
 ```
 
-style.json == https://github.com/openmaptiles/osm-bright-gl-style/blob/master/style.json
-FIXME Contour styling...
+Manually configuring `minzoom`, `maxzoom` and `bounds` is recommended to avoid 404 errors, theses values are easilly extracted from `metadata.json` file in tiles folder root directory. `openmaptiles` should not be changed, it is referred in all layers configuration.
+
+Once sources are configured, a special vector layers must be created for contours visualization, this configuration has been adapted from [maptiler-terrain-gl-style](https://github.com/openmaptiles/maptiler-terrain-gl-style) (BSD3) and merged in "bright":
+
+```
+    {
+      "id": "contour_index",
+      "type": "line",
+      "source": "terrain_contours_50m",
+      "source-layer": "contours",
+      "filter": ["all", ["==", ["%", ["get", "height"], 500], 0]],
+      "layout": { "visibility": "visible" },
+      "paint": { ... }
+    },
+```
+
+Note that `source-layer` must be the `-l` argument used in `tippecanoe`. Our filter will generate a bold "contour index line" every 500m (ie height % 500 is 0).
 
 ## Perspectives
 
 - Fix contour bugs, see issue #xxx. FIXME.
 - Fix missing resources bugs, see issue #xxx. FIXME.
-- Compress terrain tiles in webm, FIXME lien medium CTO fr...
 - Build a docker image and scripts for data pre-processing.
 - Docker deployment with production nginx configuration.
 - Docker deployment with an mbtiles server configuration.
