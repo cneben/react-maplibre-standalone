@@ -4,6 +4,8 @@
 
 `react-maplibre-standalone` is a React MapLibre visualization demonstration using local only GIS data with no API-key or dependency on third-party service. Repository could be used as a sample for a standalone map visualization application or in an airgapped environment. This tutorial is a Work In Progress, see the openned Github issues.
 
+React integration is a copy of the excellent MapTiler tutorial: https://docs.maptiler.com/react/maplibre-gl-js/how-to-use-maplibre-gl-js/  (MIT, (C) MapTiler)
+
 Our objective is to build a Maplibre web application with the following features:
   1. A vector OSM layer.
   2. A terrain digital elevation model to view our vector OSM layer in 3D with hill-shading.
