@@ -175,7 +175,20 @@ STRM Downloader output folder is `SRTM_chamonix` (4 `.hgt` files):
 gdalbuildvrt -overwrite -srcnodata -9999 -vrtnodata -9999 SRTM_chamonix_area.vrt SRTM_chamonix_area/*.hgt
 gdalwarp -r cubicspline -t_srs EPSG:3857 -dstnodata 0 -co COMPRESS=DEFLATE SRTM_chamonix_area.vrt SRTM_chamonix_area_WGS84.vrt
 gdal_translate -of GTiff -co COMPRESS=LZW -co BIGTIFF=YES -co TILED=YES SRTM_chamonix_area_WGS84.vrt chamonix_area.tiff
-gdalwarp -te 682190,9648 5711310,0805 837638,3521 5789318,7746 chamonix_area.tiff chamonix_terrain.tiff
+```
+
+To crop your "area" DEM to OSM data bounding box you need to generate the bounding box with `osmium fileinfo`, then to apply crop with `gdalwarp` with a bbox in correct SRS:
+
+```sh
+$ osmium fileinfo chamonix_osm.pbf
+...
+Header:
+  Bounding boxes:
+    (6.54,45.77,7.16,46.04)
+```
+Remove `,` in `gdalwarp` input:
+```
+gdalwarp -te 6.54 45.77 7.16 46.04 -te_srs EPSG:4326 chamonix_area.tiff chamonix_terrain.tiff
 ```
 
 Ouput product `chamonix_terrain.tiff` will be used to render elevation tiles and build vector contour lines.
@@ -263,7 +276,7 @@ tippecanoe --no-feature-limit --no-tile-size-limit --exclude-all --minimum-zoom=
 You end directly with a plain `.pbf` directory: `chamonix_coutours_50m` (use mb-util to generate a `.mbtiles`).
 
 
-## "Serverless" visualization in maplibre
+## "Serverless" visualization in Maplibre
 
 Full dataset should look like:
 
