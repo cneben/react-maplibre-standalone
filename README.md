@@ -378,3 +378,7 @@ Note that `source-layer` must be the `-l` argument used in `tippecanoe`. Our fil
 - Docker deployment with production nginx configuration.
 - Docker deployment with an mbtiles server configuration.
             
+## Licences
+
+OpenMapTiles is Copyright (c) 2022, MapTiler.com & OpenMapTiles contributors
+MapLibre GL JS is Copyright (c) 2020, MapLibre contributors
