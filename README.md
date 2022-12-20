@@ -2,7 +2,7 @@
 
 ![react-maplibre-standalone](./doc/screenshots/maplibre-standalone.jpeg)
 
-`react-maplibre-standalone` is a React MapLibre visualization demonstration using local only GIS data with no API-key or dependency on third-party service. Repository could be used as a sample for a standalone map visualisation application or in an airgapped environment.
+`react-maplibre-standalone` is a React MapLibre visualization demonstration using local only GIS data with no API-key or dependency on third-party service. Repository could be used as a sample for a standalone map visualisation application or in an airgapped environment. This tutorial is WIP, see the Github issues.
 
 Our objective is to build a Maplibre web application with the following features:
   1. A vector OSM layer.
@@ -36,7 +36,13 @@ Our demonstration is located in Chamonix since it offer both a dense urban envir
   - All layers are cropped around Chamonix using the following bounding box: `$BBOX = [6.54, 46.04, 7.16, 45.77]`.
   - Zoom will be `[0, 16]`.
 
-FIXME: architecture des dossiers   (data, tilemaker, public, etc...)
+```
+ .
+ +-- data/                         # Used to generate gis data
+ |   +-- tilemaker/
+ +-- react-maplibre-standalone/    # Git clone of this repository
+     +-- public/
+```
 
 This tutorial has been tested on an Ubuntu 20.04 system with GDAL 3.0.4 and QGIS 3.26.1:
 ```
@@ -73,7 +79,7 @@ osmium extract --set-bounds -b 6.54,46.04,7.16,45.77 rhone-alpes-latest.osm.pbf 
 
 Our OSM pbf extract must be converted to vector tiles in a Maplibre compliant format. The `tilemaker` (https://github.com/systemed/tilemaker) tool is able to generate theses tiles using an input JSON configuration
 
-tilemaker installation:
+From `data` directory, tilemaker could be installed with:
 ```
 git clone git@github.com:systemed/tilemaker.git
 cd tilemaker
@@ -81,7 +87,7 @@ sudo apt install build-essential libboost-dev libboost-filesystem-dev libboost-i
 make
 sudo make install
 ```
-tilemaker need additional datas for processing coastline and landuse, this data is not packaged in your `chamonix.osm.pbf` it need to be downloaded from OSMData and NaturalEarth:
+`tilemaker` need additional datas for processing coastline and landuse, this data is not packaged in your `chamonix_osm.pbf` it need to be downloaded from OSMData and NaturalEarth:
 
 Install landuse vectors from NaturalEarth:
 ```
@@ -104,14 +110,27 @@ mv water-polygons-split-4326 coastline
 
 You should now have `coastline` and `landcover` folders. See this blog post for more details: https://smellman.hatenablog.com/entry/2021/12/31/175657.
 
-It is now possible to convert you `chamonix.osm.pbf` to vector `.mbtiles`, but a specific configuration must be provided to `tilemaker`:
+```
+ .
+ +-- data/
+ |   +-- landcover/
+ |   +-- coastline/
+ |   +-- tilemaker-config-standalone.json    # Available from this repository config/ folder
+ |   +-- chamonix_osm.pbf                    # Input OSM file
+ |   +-- tilemaker/
+```
+
+It is now possible to convert you `chamonix_osm.pbf` to vector `.mbtiles`, but a specific configuration must be provided to `tilemaker`:
 
 ```sh
-tilemaker --input chamonix.osm.pbf --output chamonix.osm.mbtiles --process ../tilemaker/resources/process-openmaptiles.lua --config ../tilemaker/resources/config-openmaptiles.json
+tilemaker --input chamonix.osm.pbf --output chamonix_osm.mbtiles --process ./tilemaker/resources/process-openmaptiles.lua --config ./tilemaker-config-standalone.json
 ```
-Default `../tilemaker/resources/config-openmaptiles.json` is working fine, but resulting tiles compression should be disabled:
 
-FIXME: Use "compress": "none" dans config-openmaptiles.json  (otherwise it would work serverless, link to GH issue).
+Default `./tilemaker/resources/config-openmaptiles.json` is working fine, but tiles compression should be disabled for offline use (See [this]( https://github.com/mapbox/tippecanoe/issues/793) github issue):
+
+```json
+  "compress": "none"
+```
 
 Since we are "server less", maplibre can't directly render `.mbtiles` and our tiles must be "unpackaged" to a simple Z/X/Y folder structure using `mb-util`:
 
@@ -121,7 +140,10 @@ mb-util --image_format=pbf chamonix_osm.mbtiles chamonix_osm
 ```
 
 FIXME: border effect, extract strategy...
-FIXME: Youtube reference...
+
+*References:*
+  - "3D Terrain in MapLibre 2.2": https://www.youtube.com/watch?v=sjf4GNaHtpY
+  - "Tilemaker Tips": https://www.youtube.com/watch?v=q8mnyV7be1c
 
 ## Terrain DEM
 
@@ -173,11 +195,17 @@ python3 -m pip3 install rasterio==1.2.0
 rio --version
 ```
 
-Générer les tuiles depuis un fichier `.tiff`:
+Generate elevation image tiles from `.tiff` raster:
 
 ```
 rio rgbify -b -10000 -i 0.1 --min-z 0 --max-z 12 -j 8 --format png chamonix_terrain.tiff chamonix_terrain.mbtiles
 ```
+
+Use `--format webp` to use more compression.
+
+| **Format** | **PNG** | **WEBP** |
+|------------|---------|----------|
+| Size (mb)  | 33.2mb  |  21.3mb  |
 
 There is an issue with rio-rgbify > 1.2.0, see https://github.com/mapbox/rio-rgbify/issues/39
 
@@ -185,6 +213,10 @@ Tiles can be extracted to a png Z/X/Y folder using mb-util:
 ```
 mb-util --image_format=png chamonix_terrain.mbtiles chamonix_terrain
 ```
+
+*References:*
+  - https://makina-corpus.com/sig-webmapping/optimisation-tuiles-mnt-rgb-ombrage-dynamique-mapbox-gl-maplibre-gl
+
 
 ### Contour lines generation
 
@@ -281,16 +313,14 @@ FIXME: tiles vs url.
 ```
 
 style.json == https://github.com/openmaptiles/osm-bright-gl-style/blob/master/style.json
-
+FIXME Contour styling...
 
 ## Perspectives
 
 - Fix contour bugs, see issue #xxx. FIXME.
 - Fix missing resources bugs, see issue #xxx. FIXME.
 - Compress terrain tiles in webm, FIXME lien medium CTO fr...
-- Build a docker image for all data pre-processing.
-- Integrate vector terrain tiles with quantized meshs similar to Cesium terrain models...
-- Docker deployment with nginx configuration.
-- Docker deployment with xxx (mbtiles server ?) configuration.
+- Build a docker image and scripts for data pre-processing.
+- Docker deployment with production nginx configuration.
+- Docker deployment with an mbtiles server configuration.
             
-FIXME: Copyright issues MAPBOX/MAPTILER...
