@@ -2,14 +2,14 @@
 
 ![react-maplibre-standalone](./doc/screenshots/maplibre-standalone.jpeg)
 
-`react-maplibre-standalone` is a React MapLibre visualization demonstration using local only GIS data with no API-key or dependency on third-party service. Repository could be used as a sample for a standalone map visualisation application or in an airgapped environment. This tutorial is WIP, see the Github issues.
+`react-maplibre-standalone` is a React MapLibre visualization demonstration using local only GIS data with no API-key or dependency on third-party service. Repository could be used as a sample for a standalone map visualization application or in an airgapped environment. This tutorial is a Work In Progress, see the openned Github issues.
 
 Our objective is to build a Maplibre web application with the following features:
   1. A vector OSM layer.
-  2. A terrain digital elevation model to view our vector OSM layer in 3D with hillshading.
+  2. A terrain digital elevation model to view our vector OSM layer in 3D with hill-shading.
   3. A terrain contour model since our application is oriented "outdoor".
 
-`react-maplibre-standalone` is built with pre-processed datas:
+`react-maplibre-standalone` is built with pre-processed data:
 
 ```
 git clone https://github.com/cneben/react-maplibre-standalone
@@ -20,7 +20,7 @@ npm start
 
 Web application is available at: http://localhost:3000
 
-This README.md describe the process for generatating your own GIS data:
+This README.md describe the process for generating your own GIS data:
 
 ![OSM data processing](./doc/process_osm.png)
 ![Terrain data processing](./doc/process_terrain.png)
@@ -79,7 +79,7 @@ osmium extract --set-bounds -b 6.54,46.04,7.16,45.77 rhone-alpes-latest.osm.pbf 
 
 Our OSM pbf extract must be converted to vector tiles in a Maplibre compliant format. The `tilemaker` (https://github.com/systemed/tilemaker) tool is able to generate theses tiles using an input JSON configuration
 
-From `data` directory, tilemaker could be installed with:
+From `data` directory, `tilemaker` could be installed with:
 ```
 git clone git@github.com:systemed/tilemaker.git
 cd tilemaker
@@ -87,7 +87,7 @@ sudo apt install build-essential libboost-dev libboost-filesystem-dev libboost-i
 make
 sudo make install
 ```
-`tilemaker` need additional datas for processing coastline and landuse, this data is not packaged in your `chamonix_osm.pbf` it need to be downloaded from OSMData and NaturalEarth:
+`tilemaker` need additional data for processing coastline and landuse, this data is not packaged in your `chamonix_osm.pbf` it need to be downloaded from OSMData and NaturalEarth:
 
 Install landuse vectors from NaturalEarth:
 ```
@@ -157,7 +157,7 @@ For simplicity we choose to use well known USGS SRTM DEM tiles downloaded from Q
 
 Using the Chamonix BBOX, you should end up with 4 `.hgt` files that are easy to process with GDal.
 
-We have been very succesfull with other DEM sources:
+We have been very successful with other DEM sources:
   - **Worldwide**: 
     - **Japan PALSAR2** https://www.eorc.jaxa.jp/ALOS/en/dataset/fnf_e.htm (approx 25m resolution).
   - **Europe**: 
@@ -167,7 +167,7 @@ We have been very succesfull with other DEM sources:
 
 ### Process SRTM to GeoTIFF
 
-The more effective way is to build a GDAL VRT (Virtual format) to merge our multiple `.hgt` in a single project file. This virtual project can then be reprojected and interpolated to WGS84 using `gdalwarp` and finally translated to a single geo tiff with `gdal_translate`:
+The more effective way is to build a GDAL VRT (Virtual format) to merge our multiple `.hgt` in a single project file. This virtual project can then be re-projected and interpolated to WGS84 using `gdalwarp` and finally translated to a single geo tiff with `gdal_translate`:
 
 STRM Downloader output folder is `SRTM_chamonix` (4 `.hgt` files):
 
@@ -187,7 +187,7 @@ Ouput product `chamonix_terrain.tiff` will be used to render elevation tiles and
 
 ### Process GeoTIFF to elevation tiles
 
-Geo tiff must now be converted to raster tiles compatbles with maplibre terrain layers. [`rasterio`](https://github.com/rasterio/rasterio) [`rgbify`](https://github.com/mapbox/rio-rgbify) tool might be used to generate a `.mbtiles`:
+Geo tiff must now be converted to raster tiles compatibles with Maplibre terrain layers. [`rasterio`](https://github.com/rasterio/rasterio) [`rgbify`](https://github.com/mapbox/rio-rgbify) tool might be used to generate a `.mbtiles`:
 
 Install `rasterio`:
 ```
@@ -224,7 +224,7 @@ There is two Github references repositories to generate terrain contour:
 - https://github.com/nst-guide/terrain
 - https://github.com/nst-guide/contours
 
-Unfortunately, we have not been succesfull with their `ogr2ogr` method:
+Unfortunately, we have not been successful with their `ogr2ogr` method:
 ```
 ogr2ogr -f GeoJSONSeq -sql 'SELECT * FROM Elev_Contour WHERE ContourElevation % 40 = 0.0' $geojson_name $elev_file
 ```
