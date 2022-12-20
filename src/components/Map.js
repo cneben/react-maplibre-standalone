@@ -18,7 +18,7 @@ export default function Map() {
             style: `http://localhost:3000/style.json`,
             center: [lng, lat],
             zoom: zoom,
-            antialias: true
+            //antialias: true
         });
 
         // The 'building' layer in the streets vector source contains building-height

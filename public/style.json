@@ -24,21 +24,28 @@
   "sources": {
     "terrain_source": {
 			"type":  "raster-dem",
-      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"]
+      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"],
+      "minzoom": 0,
+      "maxzoom": 12
 		},
 		"hillshade_source": {
 			"type":  "raster-dem",
-      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"]
+      "tiles": ["http://localhost:3000/chamonix_terrain/{z}/{x}/{y}.png"],
+      "minzoom": 0,
+      "maxzoom": 12
 		},
     "openmaptiles": {
       "type": "vector",
       "tiles": ["http://localhost:3000/chamonix_osm/{z}/{x}/{y}.pbf"],
       "minzoom": 0,
-      "maxzoom": 16
+      "maxzoom": 16,
+      "bounds": [6.540000, 45.770000, 7.160000, 46.040000]
     },
     "terrain_contours_50m": {
       "type": "vector",
-      "tiles": ["http://localhost:3000/chamonix_contours_50m/{z}/{x}/{y}.pbf"]
+      "tiles": ["http://localhost:3000/chamonix_contours_50m/{z}/{x}/{y}.pbf"],
+      "minzoom": 0,
+      "maxzoom": 11
     }
   },
   "sprite": "http://localhost:3000/sprites/osm-liberty",
