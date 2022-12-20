@@ -269,9 +269,9 @@ tippecanoe --no-feature-limit --no-tile-size-limit --exclude-all --minimum-zoom=
 ```
 
 `tippecanoe` main arguments:
-  - `--no-tile-compression`: . FIXME issue reference GH. 
-  - `-y height`: FIXME.
-  - `-l contours`: Name of the contour polylines layer inside the geojson tiles, this name is reused in Maplibre style.json contour layers configuration.
+  - `--no-tile-compression`: gzip unsupported with serverless direct tiles access.
+  - `-y height`: used in `style.json`.
+  - `-l contours`: Name of the contour polylines layer inside the geojson tiles, this name is reused in Maplibre `style.json` contour layers configuration.
 
 You end directly with a plain `.pbf` directory: `chamonix_coutours_50m` (use mb-util to generate a `.mbtiles`).
 
