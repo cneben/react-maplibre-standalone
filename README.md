@@ -373,8 +373,7 @@ Note that `source-layer` must be the `-l` argument used in `tippecanoe`. Our fil
 
 ## Perspectives
 
-- Fix contour bugs, see issue #xxx. FIXME.
-- Fix missing resources bugs, see issue #xxx. FIXME.
+- FIX issue #1 (railways not visible).
 - Build a docker image and scripts for data pre-processing.
 - Docker deployment with production nginx configuration.
 - Docker deployment with an mbtiles server configuration.
