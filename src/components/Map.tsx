@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
-import maplibregl from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
-import './Map.css';
+/** @jsxImportSource @emotion/react */
+import React, { useRef, useEffect, useState } from 'react'
+import maplibregl from 'maplibre-gl'
+import 'maplibre-gl/dist/maplibre-gl.css'
 
 const Map = () => {
     const mapContainer = useRef<HTMLDivElement | null>(null);
@@ -23,7 +23,7 @@ const Map = () => {
             maxBounds: [6.540000, 45.770000, 7.160000, 46.040000]
         });
 
-        // The 'building' layer in the streets vector source contains building-height
+        // 'building' layer in the streets vector source contains building-height
         // data from OpenStreetMap.
         map.current.on('load', function () {
             var layers = map.current!.getStyle().layers;
@@ -48,16 +48,6 @@ const Map = () => {
                             "property": "min_height",
                             "type": "identity"
                         },
-                        // FIXME
-                        /*[
-                            'interpolate',
-                            ['linear'],
-                            ['zoom'],
-                            15,
-                            0,
-                            15.05/*,
-                            ['get', 'min_height'] as unknown
-                        ],*/
                         'fill-extrusion-opacity': 0.6
                     }
                 },
@@ -86,8 +76,20 @@ const Map = () => {
     });
 
     return (
-        <div className="map-wrap">
-            <div ref={mapContainer} className="map" />
+        <div css={{
+            position: 'relative',
+            width: '100%',
+            height: '100vh'
+        }}>
+            <div
+                ref={mapContainer}
+                css={{
+                    position: 'absolute',
+                    width: '100%',
+                    height: '100vh',
+                    backgroundColor: '#c0ddfd'
+                }}
+            />
         </div>
     );
 }
