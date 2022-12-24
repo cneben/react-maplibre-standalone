@@ -6,8 +6,11 @@
 <p align="center">
 
 <p align="center">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="32" height="32"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="32" height="32"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="32" height="32"/> [![CC BY 4.0][cc-by-shield]][cc-by]
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="32" height="32"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="32" height="32"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="32" height="32"/> 
+<img src="https://wiki.openstreetmap.org/w/images/7/79/Public-images-osm_logo.svg" width="32" height="32"/> 
 </p>
+
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC_BY_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 `react-maplibre-standalone` is a React MapLibre visualization sample using only local GIS data with no API-key or any third-party service dependency. Repository could be used as a sample for a standalone map visualization application or in an airgapped environment. This tutorial is a Work In Progress, see the openned Github issues.
 
@@ -392,6 +395,9 @@ Note that `source-layer` must be the `-l` argument used in `tippecanoe`. Our fil
 OpenMapTiles is Copyright (c) 2022, MapTiler.com & OpenMapTiles contributors
 MapLibre GL JS is Copyright (c) 2020, MapLibre contributors
 
-This work is licensed under a [Creative Commons Attribution 4.0 International License][cc-by].
+Map data from OpenStreetMap, (c) OpenStreetMap contributors.
 
-[![CC BY 4.0][cc-by-image]][cc-by]
+This work is licensed under a Creative Commons Attribution 4.0 International License.
+
+![](https://i.creativecommons.org/l/by/4.0/88x31.png)
+
