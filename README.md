@@ -397,7 +397,7 @@ MapLibre GL JS is Copyright (c) 2020, MapLibre contributors
 
 Map data from OpenStreetMap, (c) OpenStreetMap contributors.
 
-This work is licensed under a Creative Commons Attribution 4.0 International License.
+This work is licensed under a Creative Commons Attribution 4.0 International License. See [LICENSE](LICENSE).
 
 ![](https://i.creativecommons.org/l/by/4.0/88x31.png)
 
