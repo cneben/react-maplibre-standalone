@@ -3,18 +3,17 @@ import maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import './Map.css';
 
-
-export default function Map() {
-    const mapContainer = useRef(null);
-    const map = useRef(null);
+const Map = () => {
+    const mapContainer = useRef<HTMLDivElement | null>(null);
+    const map = useRef<maplibregl.Map | null>(null);
     const [lat] = useState(45.92);
     const [lng] = useState(6.87);
     const [zoom] = useState(14);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (map.current) return;
         map.current = new maplibregl.Map({
-            container: mapContainer.current,
+            container: mapContainer.current as HTMLElement,
             style: `http://localhost:3000/style.json`,
             center: [lng, lat],
             zoom: zoom,
@@ -24,8 +23,8 @@ export default function Map() {
         // The 'building' layer in the streets vector source contains building-height
         // data from OpenStreetMap.
         map.current.on('load', function () {
-            var layers = map.current.getStyle().layers;
-            map.current.addLayer(
+            var layers = map.current!.getStyle().layers;
+            map.current!.addLayer(
                 {
                     id: 'building-3d',
                     source: 'openmaptiles',
@@ -42,15 +41,20 @@ export default function Map() {
                             "property": "render_height",
                             "type": "identity"
                         },
-                        'fill-extrusion-base': [
+                        'fill-extrusion-base':  {
+                            "property": "min_height",
+                            "type": "identity"
+                        },
+                        // FIXME
+                        /*[
                             'interpolate',
                             ['linear'],
                             ['zoom'],
                             15,
                             0,
-                            15.05,
-                            ['get', 'min_height']
-                        ],
+                            15.05/*,
+                            ['get', 'min_height'] as unknown
+                        ],*/
                         'fill-extrusion-opacity': 0.6
                     }
                 },
@@ -84,3 +88,5 @@ export default function Map() {
         </div>
     );
 }
+
+export default Map;
