@@ -17,7 +17,10 @@ const Map = () => {
             style: `http://localhost:3000/style.json`,
             center: [lng, lat],
             zoom: zoom,
-            //antialias: true
+            antialias: true,
+            maxPitch: 80,
+            maplibreLogo: true,
+            maxBounds: [6.540000, 45.770000, 7.160000, 46.040000]
         });
 
         // The 'building' layer in the streets vector source contains building-height

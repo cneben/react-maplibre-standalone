@@ -1,13 +1,13 @@
 # Standalone React Maplibre visualization
 
-<center> 
+<p align="center">
 
-![react-maplibre-standalone](./doc/screenshots/maplibre-standalone.jpeg)
-</center>
+![react-maplibre-standalone](./doc/screenshots/maplibre-standalone.png)
+<p align="center">
 
-<center>
+<p align="center">
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="32" height="32"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="32" height="32"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="32" height="32"/>
-</center>
+</p>
 
 `react-maplibre-standalone` is a React MapLibre visualization demonstration using local only GIS data with no API-key or dependency on third-party service. Repository could be used as a sample for a standalone map visualization application or in an airgapped environment. This tutorial is a Work In Progress, see the openned Github issues.
 
