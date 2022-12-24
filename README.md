@@ -19,10 +19,10 @@ React integration is a Typescript / @emotion adaptation of the excellent [MapTil
 
 Our objective is to build a Maplibre web application with the following features:
   1. A vector OSM layer.
-  2. A terrain digital elevation model to view our vector OSM layer in 3D with hill-shading.
-  3. A terrain contour model since our application is oriented "outdoor".
+  2. A terrain digital elevation model to view a vector OSM layer in 3D with hill-shading.
+  3. A terrain contour model since this is an "outdoor" oriented application.
 
-`react-maplibre-standalone` is built with pre-processed data:
+`react-maplibre-standalone` is built with ready to use pre-processed data:
 
 ```
 git clone https://github.com/cneben/react-maplibre-standalone
@@ -31,7 +31,7 @@ npm install
 npm start
 ```
 
-Web application is available at: http://localhost:3000
+Web application should then be available at: http://localhost:3000
 
 This README.md describe the process for generating your own GIS data:
 
@@ -40,11 +40,11 @@ This README.md describe the process for generating your own GIS data:
 
 External resources:
   - https://blog.kleunen.nl/blog/tilemaker-generate-map
-  - Contours:
+  - Contour lines:
     - https://github.com/nst-guide/terrain
     - https://github.com/nst-guide/contours
 
-Our demonstration is located in Chamonix since it offer both a dense urban environment and interesting terrain features:
+Demonstration is centered on Chamonix since it offer both a dense urban environment and interesting terrain features:
   - Map is centered on: `$CENTER = [45.92, 6.87]` in decimal degrees.
   - All layers are cropped around Chamonix using the following bounding box: `$BBOX = [6.54, 46.04, 7.16, 45.77]`.
   - Zoom will be `[0, 16]`.
@@ -57,7 +57,7 @@ Our demonstration is located in Chamonix since it offer both a dense urban envir
      +-- public/
 ```
 
-This tutorial has been tested on an Ubuntu 20.04 system with GDAL 3.0.4 and QGIS 3.26.1:
+This tutorial is tested on an Ubuntu 20.04 system with GDAL 3.0.4 and QGIS 3.26.1:
 ```
 sudo apt-get install gdal-bin
 ogrinfo --version
@@ -70,11 +70,11 @@ GDAL 3.0.4, released 2020/01/28
 
 ### Create a .osm for target area
 
-There is significant limitation on API calls you can do on openstreetmap.org, extracting a large area to `.osm` XML/vector format might be tricky. 
+There is significant limitations on API calls volume you can do on openstreetmap.org, extracting a large area to `.osm` XML/vector format might be tricky. 
 
-A more robust procedure is to download a regional `.pbf` extract from GeoFabrik and crop this extract to the desired bounding box before converting resulting `.pbf` to `.osm` with `osmium`.
+A more robust procedure is to download a regional `.pbf` extract from GeoFabrik and crop this extract to the desired bounding box before converting resulting `.pbf` to a `.osm` file with `osmium`.
 
-For Chamonix, the `rhone-alpes-latest.osm.pbf` regional `.pbf` extract can be downloaded directly from GeoFabrik:
+For Chamonix, the `rhone-alpes-latest.osm.pbf` regional `.pbf` extract can be downloaded directly from [GeoFabrik](https://download.geofabrik.de/):
 
 ```
 wget https://download.geofabrik.de/europe/france/rhone-alpes-latest.osm.pbf
@@ -90,7 +90,7 @@ osmium extract --set-bounds -b 6.54,46.04,7.16,45.77 rhone-alpes-latest.osm.pbf 
 
 ### Convert .osm to .pbf vector tiles:
 
-Our OSM pbf extract must be converted to vector tiles in a Maplibre compliant format. The `tilemaker` (https://github.com/systemed/tilemaker) tool is able to generate theses tiles using an input JSON configuration
+OSM pbf extract must be converted to vector tiles in a Maplibre compliant format: `tilemaker` (https://github.com/systemed/tilemaker) tool is able to generate theses tiles using a JSON input configuration
 
 From `data` directory, `tilemaker` could be installed with:
 ```
@@ -100,7 +100,7 @@ sudo apt install build-essential libboost-dev libboost-filesystem-dev libboost-i
 make
 sudo make install
 ```
-`tilemaker` need additional data for processing coastline and landuse, this data is not packaged in your `chamonix_osm.pbf` it need to be downloaded from OSMData and NaturalEarth:
+`tilemaker` need additional data for processing coastlines and landuse, this data is not packaged in `chamonix_osm.pbf` and need to be downloaded from OSMData and NaturalEarth:
 
 Install landuse vectors from NaturalEarth:
 ```
@@ -133,7 +133,7 @@ You should now have `coastline` and `landcover` folders. See this blog post for 
  |   +-- tilemaker/
 ```
 
-It is now possible to convert you `chamonix_osm.pbf` to vector `.mbtiles`, but a specific configuration must be provided to `tilemaker`:
+It is possible to convert you `chamonix_osm.pbf` to a vector `.mbtiles`, but a specific configuration must be provided to `tilemaker`:
 
 ```sh
 tilemaker --input chamonix.osm.pbf --output chamonix_osm.mbtiles --process ./tilemaker/resources/process-openmaptiles.lua --config ./tilemaker-config-standalone.json
@@ -152,8 +152,6 @@ Extract mbtiles to OSM vector pbf Z/X/Y folders:
 mb-util --image_format=pbf chamonix_osm.mbtiles chamonix_osm
 ```
 
-FIXME: border effect, extract strategy...
-
 *References:*
   - "3D Terrain in MapLibre 2.2": https://www.youtube.com/watch?v=sjf4GNaHtpY
   - "Tilemaker Tips": https://www.youtube.com/watch?v=q8mnyV7be1c
@@ -164,7 +162,7 @@ FIXME: border effect, extract strategy...
 
 ### Data source
 
-For simplicity we choose to use well known USGS SRTM DEM tiles downloaded from QGis using the "SRTM Downloader" plugin. You need to register to EarthData (https://www.earthdata.nasa.gov/) and provide your user/password to STRM Downloader plugin: 
+For simplicity the well known USGS SRTM DEM tiles has been selected and can be downloaded directly from QGis using the "SRTM Downloader" plugin. You need to register to EarthData (https://www.earthdata.nasa.gov/) and provide your user/password to STRM Downloader plugin: 
 
 ![data processing](./doc/screenshots/qgis-srtm-downloader.jpeg)
 
@@ -190,7 +188,7 @@ gdalwarp -r cubicspline -t_srs EPSG:3857 -dstnodata 0 -co COMPRESS=DEFLATE SRTM_
 gdal_translate -of GTiff -co COMPRESS=LZW -co BIGTIFF=YES -co TILED=YES SRTM_chamonix_area_WGS84.vrt chamonix_area.tiff
 ```
 
-To crop your "area DEM" to OSM data bounding box you need to extract the bounding box with `osmium fileinfo` command and then to apply crop with `gdalwarp` with a bbox in correct SRS:
+This large area DEM must be cropped to our vector OSM layer boundaries. OSM layer bounding box can be extracted with `osmium fileinfo` command and the crop is then applied using `gdalwarp` with an input bbox in correct SRS:
 
 ```sh
 $ osmium fileinfo chamonix_osm.pbf
@@ -204,7 +202,7 @@ Remove `,` in `gdalwarp` input:
 gdalwarp -te 6.54 45.77 7.16 46.04 -te_srs EPSG:4326 chamonix_area.tiff chamonix_terrain.tiff
 ```
 
-Ouput product `chamonix_terrain.tiff` will be used to render elevation tiles and build vector contour lines.
+Ouput product `chamonix_terrain.tiff` will be used to render elevation tiles and build a vector contour lines layer.
 
 *Note:* `gdalwarp [-te xmin ymin xmax ymax]` need a box in source SRS (EPSG:3857), get the value in QGIS/Layer properties/metadata/extent the `osimum` bound need to be re-ordered and converted from decimal degrees.
 
@@ -213,7 +211,7 @@ Ouput product `chamonix_terrain.tiff` will be used to render elevation tiles and
 
 ### Process GeoTIFF to elevation tiles
 
-Geo tiff must now be converted to raster tiles compatibles with Maplibre terrain layers. [`rasterio`](https://github.com/rasterio/rasterio) [`rgbify`](https://github.com/mapbox/rio-rgbify) tool might be used to generate a `.mbtiles`:
+Geo tiff must now be converted to raster tiles compatibles with Maplibre terrain layers. [`rasterio`](https://github.com/rasterio/rasterio) [`rgbify`](https://github.com/mapbox/rio-rgbify) tool is used to generate a `.mbtiles`:
 
 Install `rasterio`:
 ```
@@ -286,7 +284,7 @@ tippecanoe --no-feature-limit --no-tile-size-limit --exclude-all --minimum-zoom=
   - `-y height`: used in `style.json`.
   - `-l contours`: Name of the contour polylines layer inside the geojson tiles, this name is reused in Maplibre `style.json` contour layers configuration.
 
-You end directly with a plain `.pbf` directory: `chamonix_coutours_50m` (use mb-util to generate a `.mbtiles`).
+You should end up with a plain `.pbf` directory: `chamonix_coutours_50m` (use mb-util to generate a `.mbtiles`).
 
 
 ## "Serverless" visualization in Maplibre
@@ -297,7 +295,7 @@ Full dataset should look like:
 
 By serverless we mean:
   - A web application built using `npm build`, then served using only a web server (ie, no GIS server for serving mbtiles such as [`tileserver-gl`](https://github.com/maptiler/tileserver-gl) or [`mbtilesserver`](https://github.com/consbio/mbtileserver)
-  - A "native" application embedding this web application with it's own resource/asset system (such as a Qt application with QWebEngine serving data using Qt resources).
+  - A "native" application embedding this web application with it's own resource/asset system (such as a c++ Qt application with QWebEngine serving data using Qt resources).
 
 ![Maplibre visualization](./doc/process_maplibre.png)
 
@@ -364,9 +362,9 @@ See [public/syle.json](https://github.com/cneben/react-maplibre-standalone/blob/
 }
 ```
 
-Manually configuring `minzoom`, `maxzoom` and `bounds` is recommended to avoid 404 errors, theses values are easilly extracted from `metadata.json` file in tiles folder root directory. `openmaptiles` should not be changed, it is referred in all layers configuration.
+Manually configuring `minzoom`, `maxzoom` and `bounds` is recommended to avoid 404 errors, theses values are easilly extracted from `metadata.json` file in tiles folder root directory. `openmaptiles` name should not be changed, it is referred in all layers configuration.
 
-Once sources are configured, a special vector layers must be created for contours visualization, this configuration has been adapted from [maptiler-terrain-gl-style](https://github.com/openmaptiles/maptiler-terrain-gl-style) (BSD3) and merged in "bright":
+Once sources are configured, a special vector layers must be created for contours visualization, this configuration has been adapted from [maptiler-terrain-gl-style](https://github.com/openmaptiles/maptiler-terrain-gl-style) (BSD3) and merged in this sample "bright" fork:
 
 ```json
   "layers": [
