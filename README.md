@@ -9,9 +9,9 @@
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="32" height="32"/><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" width="32" height="32"/> <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="32" height="32"/>
 </p>
 
-`react-maplibre-standalone` is a React MapLibre visualization demonstration using local only GIS data with no API-key or dependency on third-party service. Repository could be used as a sample for a standalone map visualization application or in an airgapped environment. This tutorial is a Work In Progress, see the openned Github issues.
+`react-maplibre-standalone` is a React MapLibre visualization sample using only local GIS data with no API-key or any third-party service dependency. Repository could be used as a sample for a standalone map visualization application or in an airgapped environment. This tutorial is a Work In Progress, see the openned Github issues.
 
-React integration is a copy of the excellent MapTiler tutorial: https://docs.maptiler.com/react/maplibre-gl-js/how-to-use-maplibre-gl-js/  (MIT, (C) MapTiler)
+React integration is a TS/@emotion adaptation of the excellent MapTiler tutorial: https://docs.maptiler.com/react/maplibre-gl-js/how-to-use-maplibre-gl-js/  (MIT, (C) MapTiler)
 
 Our objective is to build a Maplibre web application with the following features:
   1. A vector OSM layer.
