@@ -1,6 +1,6 @@
 {
-  "short_name": "React Maplibre standalone sample",
-  "name": "Create React App Sample",
+  "short_name": "react-maplibre-standalone",
+  "name": "React Maplibre standalone sample",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
