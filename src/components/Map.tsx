@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useRef, useEffect, useState } from "react";
-import maplibregl, {MapEventType} from "maplibre-gl";
+import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { StyleSpecification, SourceSpecification, VectorSourceSpecification } from '@maplibre/maplibre-gl-style-spec';
 
