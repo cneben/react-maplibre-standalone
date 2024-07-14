@@ -26,7 +26,7 @@ const Map = () => {
     // 'building' layer in the streets vector source contains building-height
     // data from OpenStreetMap.
     map.current.on("load", function () {
-      var layers = map.current!.getStyle().layers;
+      //var layers = map.current!.getStyle().layers;
       map.current!.addLayer(
         {
           id: "building-3d",
