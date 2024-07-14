@@ -28,10 +28,10 @@ Our objective is to build a Maplibre web application with the following features
 git clone https://github.com/cneben/react-maplibre-standalone
 cd react-maplibre-standalone
 npm install
-npm start
+npm run dev
 ```
 
-Web application should then be available at: http://localhost:3000
+Web application should then be available at: http://localhost:3000  (Note: port 3000 is hardcoded in `style.json` it must be free)
 
 This README.md describe the process for generating your own GIS data:
 
