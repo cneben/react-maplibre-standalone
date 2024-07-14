@@ -16,8 +16,6 @@ const Map: React.FC = () => {
     if (style !== null) return;
     const baseUrl = `${window.location.origin}${import.meta.env.BASE_URL}`;
     const styleUrl = `${baseUrl}style.json`;
-    console.error("baseUrl=" + baseUrl);
-    console.error("styleUrl=" + styleUrl);
 
     // Note 20240714: Manually modify base url for ressources loaded
     // in style.json to fit the current Vite.js deployment.
@@ -92,7 +90,6 @@ const Map: React.FC = () => {
 
     // 'building' layer in the openmaptiles vector source contains building-height
     // data from OpenStreetMap.
-    // FIXME: Add a hillshade layer for hillshade_source
     maplibreMap.on(
       // @ts-expect-error
       "load",
