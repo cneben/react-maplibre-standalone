@@ -94,6 +94,7 @@ const Map: React.FC = () => {
     // data from OpenStreetMap.
     // FIXME: Add a hillshade layer for hillshade_source
     maplibreMap.on(
+      // @ts-expect-error
       "load",
       () => {
         console.error("!!!!!!!MAP on load...");
@@ -123,13 +124,13 @@ const Map: React.FC = () => {
         );
 
         map.current!.setSky({
-            'sky-color': '#008dff',
-            'sky-horizon-blend': 0.6,
-            'horizon-color': '#88c6f9',
-            'horizon-fog-blend': 0.7,
-            'fog-color': '#c6c6c6',
-            'fog-ground-blend': 0.5 
-        });        
+          "sky-color": "#008dff",
+          "sky-horizon-blend": 0.6,
+          "horizon-color": "#88c6f9",
+          "horizon-fog-blend": 0.7,
+          "fog-color": "#c6c6c6",
+          "fog-ground-blend": 0.5,
+        });
       },
       [style]
     );
