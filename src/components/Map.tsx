@@ -10,7 +10,7 @@ const Map = () => {
     const [lng] = useState(6.87);
     const [zoom] = useState(14);
 
-    React.useEffect(() => {
+    useEffect(() => {
         if (map.current) return;
         map.current = new maplibregl.Map({
             container: mapContainer.current as HTMLElement,
