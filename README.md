@@ -286,6 +286,10 @@ tippecanoe --no-feature-limit --no-tile-size-limit --exclude-all --minimum-zoom=
 
 You should end up with a plain `.pbf` directory: `chamonix_coutours_50m` (use mb-util to generate a `.mbtiles`).
 
+> [!NOTE]
+> Since v4.1.3 Maplibre a new option is available for generating coutour lines on the fly from DEM sources:
+> https://maplibre.org/news/2024-04-30-maplibre-newsletter-april-2024/#maplibre-style-spec
+> Issue is also active: https://github.com/maplibre/maplibre-style-spec/issues/583
 
 ## "Serverless" visualization in Maplibre
 
