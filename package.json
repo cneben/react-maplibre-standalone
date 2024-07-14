@@ -10,10 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@emotion/react": "^11.11.4",
+    "@maplibre/maplibre-gl-style-spec": "^20.3.0",
     "maplibre-gl": "^4.5.0",
-    "@emotion/react": "^11.11.4"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
