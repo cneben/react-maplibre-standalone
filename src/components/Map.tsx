@@ -60,10 +60,10 @@ const Map: React.FC = () => {
       style: style,
       center: [lng, lat],
       zoom: zoom,
-      antialias: true,
       maxPitch: 80,
       maplibreLogo: true,
       maxBounds: [6.54, 45.77, 7.16, 46.04],
+      canvasContextAttributes: {antialias: true} 
     });
     map.current = maplibreMap
 
@@ -91,7 +91,6 @@ const Map: React.FC = () => {
     // 'building' layer in the openmaptiles vector source contains building-height
     // data from OpenStreetMap.
     maplibreMap.on(
-      // @ts-expect-error
       "load",
       () => {
         console.error("!!!!!!!MAP on load...");
@@ -128,8 +127,7 @@ const Map: React.FC = () => {
           "fog-color": "#c6c6c6",
           "fog-ground-blend": 0.5,
         });
-      },
-      [style]
+      }
     );
   });
 
