@@ -44,7 +44,7 @@ const Map: React.FC = () => {
       if (refStyle.glyphs) {
         refStyle.glyphs = refStyle.glyphs.replace("{baseUrl}", baseUrl);
       }
-      console.error('refStyle=' + JSON.stringify(refStyle, null, 2))
+      //console.error('refStyle=' + JSON.stringify(refStyle, null, 2))
       setStyle(refStyle);
     }
 
