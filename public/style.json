@@ -47,7 +47,7 @@
       "type": "vector",
       "tiles": ["{baseUrl}chamonix_contours_50m/{z}/{x}/{y}.pbf"],
       "minzoom": 0,
-      "maxzoom": 12
+      "maxzoom": 11
     }
   },
   "sprite": "{baseUrl}sprites/osm-liberty",
@@ -787,7 +787,7 @@
       "metadata": {"mapbox:group": "1444849354174.1904"},
       "source": "openmaptiles",
       "source-layer": "transportation",
-      "filter": ["all", ["==", "brunnel", "tunnel"], ["==", "class", "rail"]],
+      "filter": ["all", ["==", "brunnel", "tunnel"], ["in", "class", "rail", "narrow_gauge"]],
       "paint": {
         "line-color": "#bbb",
         "line-dasharray": [2, 2],
@@ -1346,7 +1346,7 @@
       "filter": [
         "all",
         ["==", "$type", "LineString"],
-        ["==", "class", "rail"],
+        ["in", "class", "rail", "narrow_gauge"],
         ["has", "service"]
       ],
       "paint": {
@@ -1363,7 +1363,7 @@
       "filter": [
         "all",
         ["==", "$type", "LineString"],
-        ["==", "class", "rail"],
+        ["in", "class", "rail", "narrow_gauge"],
         ["has", "service"]
       ],
       "layout": {"visibility": "visible"},
@@ -1384,7 +1384,7 @@
         ["==", "$type", "LineString"],
         ["!has", "service"],
         ["!in", "brunnel", "bridge", "tunnel"],
-        ["==", "class", "rail"]
+        ["in", "class", "rail", "narrow_gauge"]
       ],
       "paint": {
         "line-color": "#bbb",
@@ -1402,7 +1402,7 @@
         ["==", "$type", "LineString"],
         ["!has", "service"],
         ["!in", "brunnel", "bridge", "tunnel"],
-        ["==", "class", "rail"]
+        ["in", "class", "rail", "narrow_gauge"]
       ],
       "paint": {
         "line-color": "#bbb",
@@ -1696,7 +1696,7 @@
       "metadata": {"mapbox:group": "1444849334699.1902"},
       "source": "openmaptiles",
       "source-layer": "transportation",
-      "filter": ["all", ["==", "brunnel", "bridge"], ["==", "class", "rail"]],
+      "filter": ["all", ["==", "brunnel", "bridge"], ["in", "class", "rail", "narrow_gauge"]],
       "paint": {
         "line-color": "#bbb",
         "line-width": {"base": 1.4, "stops": [[14, 0.4], [15, 0.75], [20, 2]]}
@@ -1708,7 +1708,7 @@
       "metadata": {"mapbox:group": "1444849334699.1902"},
       "source": "openmaptiles",
       "source-layer": "transportation",
-      "filter": ["all", ["==", "brunnel", "bridge"], ["==", "class", "rail"]],
+      "filter": ["all", ["==", "brunnel", "bridge"], ["in", "class", "rail", "narrow_gauge"]],
       "paint": {
         "line-color": "#bbb",
         "line-dasharray": [0.2, 8],
